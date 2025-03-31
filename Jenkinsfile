@@ -38,24 +38,14 @@ pipeline {
            }
          }
       }
-       stage("Quality Gate") {
-  steps {
-    script {
-      // Use the SonarQube server configuration (defined in Jenkins global settings)
-      withSonarQubeEnv('sonarqube-server') { // Replace with your SonarQube server name
-        // Wait for Quality Gate and handle the result
-        def qgResult = waitForQualityGate(
-          abortPipeline: false // Optional: Continue even if Quality Gate fails
-        )
-        
-        // Check the status explicitly (recommended)
-        if (qgResult.status != 'OK') {
-          error "Quality Gate failed: ${qgResult.status}"
+       stage("Quality Gate"){
+           steps {
+               script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonarqube_credential'
+                }	
+            }
+
         }
-      }
-    }
-  }
-}
 
     }
 }
