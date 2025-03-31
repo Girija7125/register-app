@@ -42,7 +42,7 @@ pipeline {
   steps {
     script {
       // Use the SonarQube server configuration (defined in Jenkins global settings)
-      withSonarQubeEnv('sonarqube_credential') { // Replace with your SonarQube server name
+      withSonarQubeEnv('sonarqube-server') { // Replace with your SonarQube server name
         // Wait for Quality Gate and handle the result
         def qgResult = waitForQualityGate(
           abortPipeline: false // Optional: Continue even if Quality Gate fails
